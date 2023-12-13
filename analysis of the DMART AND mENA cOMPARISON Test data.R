@@ -64,5 +64,40 @@ comparision
 comparision<-with(pankaj,duncan.test( Yld.vine,Ethephon,15,0.4035))             
 comparision
 comparision<-with(pankaj,duncan.test( Yld.vine,Trt,15,0.4035))             
-comparision
+comparison
+###333333for the split plot design
+Anova for the split polot design
+splitmodel<-with(bikas,sp.plot(Rep,VAR(mainplot),Ntr(subplot),X30Pl.Ht)
+                 
+                require(agricolae)
+attach(bikas)
+splitmodel<-with(bikas,sp.plot(Rep,VAR,Ntr,X30Pl.Ht))
+gla=splitmodel$gl.a
+glb=splitmodel$gl.b
+ea=splitmodel$Ea(error of main plot)
+eb=splitmodel$Eb(erroofr th4e sub plot)
+#W### IF MAIN PLOT AND SUB PLOT ARE SIGNIFICANT
+mainplot=with(bikas,duncan.test(X30Pl.Ht,VAR,gla,ea,console = TRUE))
+subplot=with(bikas,duncan.test(X30Pl.Ht,Ntr,gla,ea,console = TRUE))
+mainplot=with(bikas,LSD.test(X30Pl.Ht,VAR,gla,ea,console = TRUE))
+subplot=with(bikas,LSD.test(X30Pl.Ht,Ntr,glb,eb,console = TRUE))
+
+##Interaction if significant
+interacton=with(bikas,LSD.test(X30Pl.Ht,VAR:Ntr,glb,eb,console = TRUE))
+with(bikas,(interaction.plot(x.factor = VAR,trace.factor = Ntr,
+                             response = bconN.,
+                             fun = mean,
+                             type = "b",
+                             main="interaction plot of Var and Ntrogen rate 
+                             representing baby corn Nitrogen %",
+                             xlab = VAR,
+                             ylab = bconN.,
+                             pch = c(19,17,15,13),
+                             leg.bty = "0",
+                             col = c("black","blue","green","red"),
+                             lwd = 3,
+                             trace.label = "Nitrogen rate kg/ha",
+                             xpd = TRUE)))
+
+                
 
