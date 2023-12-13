@@ -42,3 +42,27 @@ ggplot(bikas, aes(x = Var, y = RL/SL)) +
   geom_smooth(method = "lm", se = FALSE, color = "red") +
   labs(x = "Var", y = "RL/SL", title = "Scatter Plot of Var against RL/SL") +
   theme_bw()
+###$##3RCBD 2 factor code analayiss 
+pankaj<-read.csv("C:/Users/HP/Desktop/Lee.csv")
+attach(pankaj)
+print(pankaj)
+aggregate( Yld.vine,by=list(X3G),mean)
+aggregate( Yld.vine,by=list(Ethephon),mean)
+aggregate( Yld.vine,by=list(Trt),mean)
+pankaj$Replication=as.factor(Replication)
+pankaj$X3G=as.factor(X3G)
+pankaj$Ethephon=as.factor(Ethephon)
+require(gvlma)
+fit=lm( Yld.vine~Replication+X3G+Ethephon+X3G*Ethephon)
+gvmodelfit=gvlma(fit)
+print(gvmodelfit)
+boxplot( Yld.vine)
+anova(lm( Yld.vine~Replication+Trt+X3G+Ethephon+X3G*Ethephon))
+require(agricolae)
+comparision<-with(pankaj,duncan.test( Yld.vine,X3G,15,0.4035))             
+comparision           
+comparision<-with(pankaj,duncan.test( Yld.vine,Ethephon,15,0.4035))             
+comparision
+comparision<-with(pankaj,duncan.test( Yld.vine,Trt,15,0.4035))             
+comparision
+
